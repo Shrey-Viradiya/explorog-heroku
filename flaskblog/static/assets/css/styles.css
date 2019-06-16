@@ -1,0 +1,56 @@
+#sidebar {
+  border-radius: 25px;
+  border-width: 0px;
+  background-color: #ddd052;
+}
+
+#post-card {
+  border-radius: 25px;
+  border-width: 0px;
+  background-color: #ff194f;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.profile_pic {
+  border-radius: 50px;
+}
+
+.announce {
+  font-family: Cabin, sans-serif;
+  font-weight: normal;
+  font-style: italic;
+}
+
+#toprow {
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  #toprow {
+    width: 1200px;
+  }
+}
+
+#top {
+  margin-top: 125px;
+}
+
+#ic {
+  margin-right: 12px;
+  margin-left: 12px;
+}
+
+#footer-row {
+}
+
+#footer-row {
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  #footer-row {
+    width: 1200px;
+  }
+}
+
