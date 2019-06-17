@@ -29,3 +29,10 @@ def send_reset_email(user):
 If you did not make this request then simply ignore this email and no changes will be made.
 '''
     mail.send(msg)
+    
+def send_database(user):
+    msg = Message('Database Change', sender = os.environ.get('USER_EMAIL'), recipients = [os.environ.get('EMAIL_USER')])
+    msg.body = "Find the updated database below"
+    with current_app.open_resource("site.db") as fp:
+        msg.attach('site.db','database/db',fp.read())
+    mail.send(msg)
