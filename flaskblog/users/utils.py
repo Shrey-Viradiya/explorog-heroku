@@ -31,7 +31,7 @@ If you did not make this request then simply ignore this email and no changes wi
     mail.send(msg)
     
 def send_database():
-    msg = Message('Database Change', sender = [os.environ.get('USER_EMAIL')], recipients = [os.environ.get('EMAIL_USER')])
+    msg = Message('Database Change', sender = 'noreply@test.com', recipients = [os.environ.get('EMAIL_USER')])
     msg.body = "Find the updated database below"
     fp = current_app.open_resource("site.db")
     msg.attach('site.db','database/db',fp.read())
