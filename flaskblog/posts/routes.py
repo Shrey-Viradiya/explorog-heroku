@@ -3,6 +3,7 @@ from flaskblog import db
 from flaskblog.posts.forms import PostForm
 from flaskblog.models import  Post
 from flask_login import  current_user,  login_required
+from flaskblog.users.utils import send_database
 
 posts = Blueprint('posts' , __name__)
 
@@ -14,6 +15,7 @@ def new_post():
         post = Post(title = form.title.data, content= form.content.data , author = current_user)
         db.session.add(post)
         db.session.commit()
+        send_database()
         flash('Your post has been created!','success')
         return redirect(url_for('main.home'))
     return render_template('create_post.html', title='New Post', form = form, legend = 'New Post')
@@ -35,6 +37,7 @@ def update_post(post_id):
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
+        send_database()
         flash('Your post has been updated!','success')
         return redirect(url_for('posts.post',post_id=post.id))
     elif request.method == 'GET':
@@ -50,6 +53,7 @@ def delete_post(post_id):
         abort (403)
     db.session.delete(post)
     db.session.commit()
+    send_database()
     flash('Your Post has been deleted!','success')
     return redirect(url_for('main.home'))
 
