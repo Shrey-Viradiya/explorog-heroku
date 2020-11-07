@@ -3,7 +3,7 @@ from flaskblog import db, bcrypt
 from flaskblog.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
-from flaskblog.users.utils import save_picture, send_reset_email
+from flaskblog.users.utils import save_picture, send_reset_email, send_database
 
 users = Blueprint('users' , __name__)
 
@@ -17,6 +17,7 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
+        send_database()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
     return render_template('register.html', title='Register', form=form)
@@ -54,6 +55,7 @@ def account():
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
+        send_database()
         flash('Your account has been updated!','success')
         return redirect(url_for('users.account'))
     elif request.method == 'GET':
@@ -94,6 +96,7 @@ def reset_token(token):
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password = hashed_password
         db.session.commit()
+        send_database()
         flash('Your password has been updated', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html',title = 'Reset Password', form=form)
